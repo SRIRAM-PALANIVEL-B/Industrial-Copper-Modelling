@@ -1,74 +1,92 @@
-Industrial-Copper-Modelling
+# Industrial Copper Modeling
 
-  Problem Statement:
-            The copper industry deals with less complex data related to sales and pricing.
-            However, this data may suffer from issues such as skewness and noisy data, which
-            can affect the accuracy of manual predictions. Dealing with these challenges manually
-            can be time-consuming and may not result in optimal pricing decisions. A machine
-            learning regression model can address these issues by utilizing advanced techniques
-            such as data normalization, feature scaling, and outlier detection, and leveraging
-            algorithms that are robust to skewed and noisy data.
-            Another area where the copper industry faces challenges is in capturing the leads. A
-            lead classification model is a system for evaluating and classifying leads based on
-            how likely they are to become a customer . You can use the STATUS variable with
-            WON being considered as Success and LOST being considered as Failure and
-            remove data points other than WON, LOST STATUS values.
+- **Table of Contents**
+- **Problem Statement**
+- **Approach**
+- **Solution Overview**
+- **Technologies Used**
+- **How to Run the Project**
+- **Contributing**
 
+# Problem Statement
 
+The copper industry deals with relatively straightforward data concerning sales and pricing. However, this data can be plagued by issues such as skewness and noise, which may impact the accuracy of manual predictions. Addressing these challenges manually is often time-consuming and can lead to suboptimal pricing decisions.
 
-  Approach:
-    1) Data Understanding: Identify the types of variables (continuous, categorical)
-    and their distributions. Some rubbish values are present in ‘Material_Reference’
-    which starts with ‘00000’ value which should be converted into null. Treat
-    reference columns as categorical variables. INDEX may not be useful.
-    2) Data Preprocessing:
-    ● Handle missing values with mean/median/mode.
-    ● Treat Outliers using IQR or Isolation Forest from sklearn library.
-    ● Identify Skewness in the dataset and treat skewness with appropriate
-    data transformations, such as log transformation(which is best suited to
-    transform target variable-train, predict and then reverse transform it back
-    to original scale eg:dollars), boxcox transformation, or other techniques,
-    to handle high skewness in continuous variables.
-    ● Encode categorical variables using suitable techniques, such as one-hot
-    encoding, label encoding, or ordinal encoding, based on their nature and
-    relationship with the target variable.
-    3) EDA: Try visualizing outliers and skewness(before and after treating skewness)
-    using Seaborn’s boxplot, distplot, violinplot.
-    4) Feature Engineering: Engineer new features if applicable, such as aggregating
-    or transforming existing features to create more informative representations of
-    the data. And drop highly correlated columns using SNS HEATMAP.
-    5) Model Building and Evaluation:
-    ● Split the dataset into training and testing/validation sets.
-    ● Train and evaluate different classification models, such as
-    ExtraTreesClassifier, XGBClassifier, or Logistic Regression, using
-    appropriate evaluation metrics such as accuracy, precision, recall, F1
-    score, and AUC curve.
-    ● Optimize model hyperparameters using techniques such as
-    cross-validation and grid search to find the best-performing model.
-    ● Interpret the model results and assess its performance based on the
-    defined problem statement.
-    ● Same steps for Regression modelling.(note: dataset contains more noise
-    and linearity between independent variables so itll perform well only with
-    tree based models)
-    6) Model GUI: Using streamlit module, create interactive page with
-    (1) task input( Regression or Classification) and
-    (2) create an input field where you can enter each column value except
-    ‘Selling_Price’ for regression model and except ‘Status’ for classification
-    model.
-    (3) perform the same feature engineering, scaling factors, log/any
-    transformation steps which you used for training ml model and predict this new
-    data from streamlit and display the output.
-    7) Tips: Use pickle module to dump and load models such as encoder(onehot/
-    label/ str.cat.codes /etc), scaling models(standard scaler), ML models. First fit
-    and then transform in separate line and use transform only for unseen data
+This project utilizes machine learning regression models to tackle these issues through advanced techniques including:
+
+- **Data normalization**
+- **Feature scaling**
+- **Outlier detection**
+  
+Additionally, the copper industry faces challenges in lead capture. A lead classification model evaluates and classifies leads based on their likelihood to convert into customers. The STATUS variable is leveraged, where 'WON' signifies success and 'LOST' signifies failure.
+
+# Approach
+
+1. **Data Understanding:** Identify variable types (continuous, categorical) and their distributions. Convert irrelevant values in Material_Reference (e.g., starting with '00000') to null and treat reference columns as categorical variables.
+
+2. **Data Preprocessing:**
+    - Handle missing values with mean/median/mode.
+    - Treat outliers using IQR or Isolation Forest from the sklearn library.
+    - Address skewness in the dataset with transformations (e.g., log transformation, Box-Cox transformation).
+    - Encode categorical variables using one-hot, label, or ordinal encoding as appropriate.
 
 
-            
-The solution must include the following:
-    1) Exploring skewness and outliers in the dataset.
-    2) Transform the data into a suitable format and perform any necessary cleaning
-    and pre-processing steps.
-    3) ML Regression model which predicts continuous variable ‘Selling_Price’.
-    4) ML Classification model which predicts Status: WON or LOST.
-    5) Creating a streamlit page where you can insert each column value and you will
-    get the Selling_Price predicted value or Status(Won/Lost)
+3. **Exploratory Data Analysis (EDA):** Visualize outliers and skewness before and after treatment using Seaborn’s boxplot, distplot, and violinplot.
+
+4. **Feature Engineering:** Create new features if applicable, aggregate or transform existing features, and eliminate highly correlated columns using SNS HEATMAP.
+
+5. **Model Building and Evaluation:**
+    - Split the dataset into training and testing/validation sets.
+    - Train and evaluate classification models (e.g., ExtraTreesClassifier, XGBClassifier, Logistic Regression) using metrics such as accuracy, precision, recall, F1 score, and AUC curve.
+    - Optimize model hyperparameters through cross-validation and grid search.
+    - Conduct similar steps for regression modeling, noting that tree-based models handle noise and linearity better.
+      
+6. **Model GUI:** Create an interactive Streamlit application with:
+                      - Task input (Regression or Classification)
+                      - Input fields for entering column values (excluding Selling_Price for regression and Status for classification)
+                      - Prediction results displayed based on the processed input data.
+   
+7. **Model Management:** Use the pickle module to save and load models (e.g., encoders, scaling models, ML models). Ensure to fit and transform in separate lines, using transform only for unseen data.
+
+# Solution Overview
+
+The solution encompasses:
+
+  - Exploration of skewness and outliers in the dataset.
+  - Data transformation and necessary cleaning/preprocessing.
+  - A machine learning regression model to predict the continuous variable Selling_Price.
+  - A machine learning classification model to predict the Status (WON or LOST).
+  - A Streamlit interface for user input and prediction outputs.
+
+
+# Technologies Used
+
+    Python
+    Pandas
+    Scikit-learn
+    Seaborn
+    Matplotlib
+    Streamlit
+    Pickle
+
+# How to Run the Project
+
+1. Clone the repository:
+   
+       git clone <repository-url>
+       cd Industrial-Copper-Modelling
+
+2. Install the required packages:
+
+        pip install -r requirements.txt
+
+3. Run the Streamlit application:
+
+       streamlit run app.py
+
+
+# Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an issue for suggestions or improvements.
+
+   
